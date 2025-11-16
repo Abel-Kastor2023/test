@@ -1,0 +1,20 @@
+    name: Copy Single File via SCP
+
+    on: [push]
+
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Copy single file to remote
+            uses: appleboy/scp-action@v1 # Or appleboy/scp-action@v1
+            with:
+              local: index.html  # Path to the file in your repository
+              remote: /var/www/html/ # Destination path on the remote server
+              host: 13.232.241.93
+              username: ec2-user
+              key: ${{ secrets.server_ssh_key }} # Use 'key' for private key, 'password' for password-based auth
+              # password: ${{ secrets.SSH_PASSWORD }} # Uncomment if using password authentication
